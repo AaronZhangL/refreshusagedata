@@ -31,7 +31,8 @@ public static async Task<object> Run(HttpRequestMessage req, TraceWriter log)
             error = "Month must be in YYYY-MM format in the input object"
         });        
     }
-    string returnMessage = await ProcessMonthAsync(month, log);
+    ProcessMonth processMonth = new ProcessMonth();
+    string returnMessage = await processMonth.ProcessMonthAsync(month, log);
     return req.CreateResponse(HttpStatusCode.OK, new {
         message = $"Month {month} processed: {returnMessage}"
     });
