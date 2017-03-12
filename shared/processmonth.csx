@@ -15,6 +15,10 @@ public class ProcessMonth {
         containerName = System.Configuration.ConfigurationManager.AppSettings["ContainerName"];  
         enrollmentKey = System.Configuration.ConfigurationManager.AppSettings["EnrollmentKey"];
         enrollmentNumber = System.Configuration.ConfigurationManager.AppSettings["EnrollmentNumber"];
+        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", enrollmentKey);
+        httpClient.DefaultRequestHeaders.Add("api-version","1.0");
+        httpClient.Timeout = new System.TimeSpan(0,5,0);
+
     }
     
     public async Task<string> ProcessMonthAsync(string month, TraceWriter log)
@@ -23,9 +27,6 @@ public class ProcessMonth {
         string outFile = $"Details{month}.csv";
         
         log.Info($"url: {linkToDownloadDetailReport}");
-        httpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("bearer", enrollmentKey);
-        httpClient.DefaultRequestHeaders.Add("api-version","1.0");
-        httpClient.Timeout = new System.TimeSpan(0,5,0);
         HttpResponseMessage response = await httpClient.GetAsync(linkToDownloadDetailReport);
         string responseMessage = string.Empty;
         if (response.IsSuccessStatusCode) {
