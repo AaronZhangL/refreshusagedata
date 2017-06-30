@@ -81,11 +81,11 @@
                         },
                         {
                             "name": "EnrollmentNumber",
-                            "value": "parameters('enrollmentNumber')"
+                            "value": "[parameters('enrollmentNumber')]"
                         },
                         {
                             "name": "EnrollmentKey",
-                            "value": "parameters('enrollmentKey')"
+                            "value": "[parameters('enrollmentKey')]"
                         }
                     ]
                 },
